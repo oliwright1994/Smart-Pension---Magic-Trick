@@ -49,9 +49,12 @@ function createButtons() {
 function toggleStackedCards() {
   const cardsWrapper = document.querySelector(".cards-wrapper");
   cardsWrapper.classList.toggle("shuffling");
+  setTimeout(function() {
+    cardsWrapper.classList.toggle("shuffling");
+  }, 2000);
 }
 //Function to shuffle cards into a random order
-function shuffleCards() {
+async function shuffleCards() {
   toggleStackedCards();
   const cards = document.querySelectorAll(".card");
 
@@ -66,12 +69,12 @@ function shuffleCards() {
     i = Math.floor(Math.random() * n--);
     shuffledCards.push(orderedCards.splice(i, 1)[0]);
   }
-  console.log(cards);
-  cards.forEach((card, i) => {
-    console.log(shuffledCards[i] * 30);
-    card.style.left = `${shuffledCards[i] * 30}px`;
-    card.style.zIndex = `${shuffledCards[i]}`;
-  });
+  setTimeout(function() {
+    cards.forEach((card, i) => {
+      card.style.left = `${shuffledCards[i] * 30}px`;
+      card.style.zIndex = `${shuffledCards[i]}`;
+    });
+  }, 1000);
 }
 
 //Function to toggle cards between face up and face down (visible/not visible)
@@ -83,6 +86,14 @@ function toggleCards() {
 //Function to return shuffled cards to ordered by suit
 function magicTrick() {
   toggleStackedCards();
+  const cards = document.querySelectorAll(".card");
+
+  setTimeout(function() {
+    cards.forEach((card, i) => {
+      card.style.left = `${i * 30}px`;
+      card.style.zIndex = `${i}`;
+    });
+  }, 1000);
 }
 
 // Function to start the game by clearing the wrapper, creating
