@@ -45,34 +45,41 @@ function createButtons() {
     buttonWrapper.append(newButton);
   });
 }
-//Function that toggles the class '.hidden' on the cards wrapper to animate 'stacking' the cards
+//Function that toggles the class 'shuffling' on the cards wrapper to animate 'stacking' the cards
 function toggleStackedCards() {
   const cardsWrapper = document.querySelector(".cards-wrapper");
-  cardsWrapper.classList.toggle("shuffling");
+  cardsWrapper.classList.add("shuffling");
+  //Timeout to remove the 'shuffling' class to allow the cards to spread out according to their 'left' css property
   setTimeout(function() {
-    cardsWrapper.classList.toggle("shuffling");
-  }, 2000);
+    cardsWrapper.classList.remove("shuffling");
+  }, 1500);
 }
 //Function to shuffle cards into a random order
-async function shuffleCards() {
+function shuffleCards() {
   toggleStackedCards();
   const cards = document.querySelectorAll(".card");
+  const cardsWrapper = document.querySelector(".cards-wrapper");
+  //Create an array of values from 0-51 to represent cards in a deck
+  let orderedDeck = Array.from(new Array(52), (x, i) => i);
 
-  //Create an array of values from 0-51 to represent cards
-  let orderedCards = Array.from(new Array(52), (x, i) => i);
-
-  //Use the Fisher-Yates Shuffle algorithm to shuffle these values into a random order in a new arry call shuffledCards
-  let shuffledCards = [],
-    n = orderedCards.length,
+  //Use the Fisher-Yates Shuffle algorithm to shuffle these values into a random order in a new array call shuffledDeck
+  let shuffledDeck = [],
+    n = orderedDeck.length,
     i;
   while (n) {
     i = Math.floor(Math.random() * n--);
-    shuffledCards.push(orderedCards.splice(i, 1)[0]);
+    shuffledDeck.push(orderedDeck.splice(i, 1)[0]);
   }
+  //Set timeout to account for animation of cards stacking
+  //Callback function passes over all cards and inserts them to the position of their index in the shuffled deck array
   setTimeout(function() {
     cards.forEach((card, i) => {
-      card.style.left = `${shuffledCards[i] * 30}px`;
-      card.style.zIndex = `${shuffledCards[i]}`;
+      cardsWrapper.insertBefore(card, cards[shuffledDeck[i]]);
+    });
+    //Refetch the array of all cards in the dom, now shuffled, and correctly updates their absolute positioning to appear spread out again
+    const shuffledCards = document.querySelectorAll(".card");
+    shuffledCards.forEach((card, i) => {
+      card.style.left = `${i * 30}px`;
     });
   }, 1000);
 }
