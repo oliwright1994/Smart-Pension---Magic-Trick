@@ -37,9 +37,9 @@ function createButtons() {
   ];
   gameButtons.forEach(gameButton => {
     newButton = document.createElement("button");
-    (newButton.type = "button"),
-      (newButton.id = gameButton),
-      newButton.classList.add("btn", "btn-lg", "btn-secondary", "mx-2");
+    newButton.type = "button";
+    newButton.id = gameButton;
+    newButton.classList.add("btn", "btn-lg", "btn-secondary", "mx-2");
     newButton.innerText = gameButton.text;
     newButton.addEventListener("click", gameButton.function);
     buttonWrapper.append(newButton);
@@ -84,7 +84,7 @@ function shuffleCards() {
   }, 1000);
 }
 
-//Function to toggle cards between face up and face down (visible/not visible)
+//Function to toggle cards between face up and face down (adding and removing 'hidden' class)
 function toggleCards() {
   const cardsWrapper = document.querySelector(".cards-wrapper");
   cardsWrapper.classList.toggle("hidden");
@@ -93,8 +93,9 @@ function toggleCards() {
 //Function to return shuffled cards to ordered by suit
 function magicTrick() {
   toggleStackedCards();
-  const cards = document.querySelectorAll(".card");
+  const shuffledCards = document.querySelectorAll(".card");
 
+  //Set timeout to account for animation of cards stacking
   setTimeout(function() {
     cards.forEach((card, i) => {
       card.style.left = `${i * 30}px`;
