@@ -4,7 +4,7 @@
   overflow: scroll;
   margin: 0 2rem;
   border-radius: 10px;
-  
+
   .card {
     height: $card-height;
     width: $card-width;
@@ -170,13 +170,13 @@
     }
 
     &:hover {
-      z-index: 50;
+      z-index: 53;
     }
   }
 
   &.hidden {
     .card {
-      background: rgb(0,212,255);
+      background: rgb(0, 212, 255);
       background: radial-gradient(circle, #00d4ff 0%, #090979 65%, #020024 97%);
       border: 1px solid;
       border-radius: 10px;
@@ -189,4 +189,3 @@
     }
   }
 }
-

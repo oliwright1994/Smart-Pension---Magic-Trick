@@ -70,9 +70,8 @@ function shuffleCards() {
   cards.forEach((card, i) => {
     console.log(shuffledCards[i] * 30);
     card.style.left = `${shuffledCards[i] * 30}px`;
-    card.style.zIndex = `${i}`;
+    card.style.zIndex = `${shuffledCards[i]}`;
   });
-  toggleStackedCards();
 }
 
 //Function to toggle cards between face up and face down (visible/not visible)
