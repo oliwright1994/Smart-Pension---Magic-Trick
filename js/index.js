@@ -19,13 +19,32 @@ function createCards() {
     const positionFromLeft = i * 30;
     const cardElement = document.createElement("div");
     cardElement.setAttribute("data-value", card.value);
-    cardElement.classList.add("card", `${card.suit}-${card.value}`);
+    cardElement.classList.add(
+      "card",
+      `${card.suit}`,
+      `${card.value}`,
+      "border-dark",
+      "border",
+      "rounded"
+    );
     cardElement.style.left = `${positionFromLeft}px`;
-    cardsWrapper.append(cardElement);
+    let cardFace = document.createElement("div");
+    cardFace.classList.add("card-face");
+    cardFace.innerHTML = `<p class='top'>
+    <span class='value'></span>
+    <span class='suit'></span>
+    </p>
+    <h1 class='suit center'></h1>
+    <p class='bottom'>
+    <span class='value'></span>
+    <span class='suit'></span>
+    </p>`;
+    cardElement.appendChild(cardFace);
     const logo = document.createElement("img");
     logo.src = "./assets/smart-logo.svg";
     logo.style.display = "none";
     cardElement.appendChild(logo);
+    cardsWrapper.append(cardElement);
   });
 }
 
