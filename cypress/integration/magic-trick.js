@@ -24,6 +24,11 @@ describe('Play game', () => {
     suits.forEach((suit) => {
       cy.get(`[class*='${suit}-']`).should('have.length', 13);
     });
+
+    cy.get('.card').then((cards) => {
+      expect(cards.length).to.equal(52);
+    });
+
     cy.get('.card').then((cards) => {
       const allCardClasses = [...cards].map((card) => card.classList[1]);
       expect(allCardClasses).to.deep.equal(sortedCardsClasses);
@@ -45,6 +50,24 @@ describe('Play game', () => {
     cy.get('.card').then((cards) => {
       const allCardClasses = [...cards].map((card) => card.classList[1]);
       expect(allCardClasses).to.deep.equal(sortedCardsClasses);
+    });
+  });
+});
+
+describe('Cards are shuffled randomly each time', () => {
+  it('Clicks the shuffle button twice', () => {
+    cy.visit('./index.html');
+    cy.get('#start-game')
+      .should('have.text', "Let's get started")
+      .click();
+    cy.contains('Shuffle').click();
+    cy.get('.card').then((cardsFirstShuffle) => {
+      const firstShuffledCardClasses = [...cardsFirstShuffle].map((card) => card.classList[1]);
+      cy.contains('Shuffle').click();
+      cy.get('.card').then((cardsSecondShuffle) => {
+        const secondShuffledCardsClasses = [...cardsSecondShuffle].map((card) => card.classList[1]);
+        expect(firstShuffledCardClasses).to.not.deep.equal(secondShuffledCardsClasses);
+      });
     });
   });
 });

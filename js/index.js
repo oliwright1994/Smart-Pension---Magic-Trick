@@ -36,6 +36,7 @@ function toggleStackedCards() {
 }
 // Function to shuffle cards into a random order
 function shuffleCards() {
+  // Call to function to 'stack' cards
   toggleStackedCards();
   const cards = document.querySelectorAll('.card');
 
@@ -51,18 +52,18 @@ function shuffleCards() {
     i = Math.floor(Math.random() * (n -= 1));
     shuffledDeck.push(orderedDeck.splice(i, 1)[0]);
   }
-  console.log(shuffledDeck);
-  // Callback function passes over all cards and inserts them to the position of their index in the
-  // shuffled deck array
+  // Create an array of all card classes currently rendered to the dom
   const allCardClasses = [...cards].map((card) => card.classList[1]);
 
+  // Pass once over each card element and remove its current card specific class and replace it with
+  // the class in the same position from the array of shuffled classes
   cards.forEach((card, j) => {
     card.classList.remove(card.classList[1]);
     card.classList.add(allCardClasses[shuffledDeck[j]]);
-    // cardsWrapper.insertBefore(card, cards[shuffledDeck[j]]);
   });
+
   // Refetch the array of all cards in the dom, now shuffled, and correctly updates their
-  // absolute positioning to appear spread out again
+  // absolute positioning to appear spread out again on the cards are unstacked
   const shuffledCards = document.querySelectorAll('.card');
   shuffledCards.forEach((card, j) => {
     card.style.left = `${j * 30}px`;
@@ -79,16 +80,27 @@ function magicTrick() {
   toggleStackedCards();
   const shuffledCards = document.querySelectorAll('.card');
 
-  // Set timeout to account for animation of cards stacking
-  // setTimeout(() => {
-  shuffledCards.forEach((card) => {
-    cardsWrapper.removeChild(card);
+  const allCardClasses = [];
+  // Create an array with objects containing the value and the suit of each card
+  suits.forEach((suit) => {
+    for (let i = 1; i <= 13; i += 1) {
+      const cardObject = {
+        value: i,
+        suit,
+      };
+      allCardClasses.push(cardObject);
+    }
   });
-  createCards();
-  // }, 1000);
-}
-// Function to clear out the initial button and create new buttons to play the game.
 
+  // Pass once over each card element and remove its current card specific class and replace it with
+  // the class from the order array of card classes
+  shuffledCards.forEach((card, i) => {
+    card.classList.remove(card.classList[1]);
+    card.classList.add(`${allCardClasses[i].suit}-${allCardClasses[i].value}`);
+  });
+}
+
+// Function to clear out the initial button and create new buttons to play the game.
 function createButtons() {
   const startButton = document.getElementById('start-game');
   startButton.remove();
