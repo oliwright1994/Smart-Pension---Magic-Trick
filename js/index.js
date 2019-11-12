@@ -1,14 +1,14 @@
-const suits = ['hearts', 'spades', 'diamonds', 'clubs'];
-const cardsWrapper = document.querySelector('.cards-wrapper');
+const suits = ["hearts", "spades", "diamonds", "clubs"];
+const cardsWrapper = document.querySelector(".cards-wrapper");
 
 function createCards() {
   const cards = [];
   // Create an array with objects containing the value and the suit of each card
-  suits.forEach((suit) => {
+  suits.forEach(suit => {
     for (let i = 1; i <= 13; i += 1) {
       const cardObject = {
         value: i,
-        suit,
+        suit
       };
       cards.push(cardObject);
     }
@@ -17,28 +17,32 @@ function createCards() {
   // For each dataObject, create a new card and append it to the DOM
   cards.forEach((card, i) => {
     const positionFromLeft = i * 30;
-    const cardElement = document.createElement('div');
-    cardElement.setAttribute('data-value', card.value);
-    cardElement.classList.add('card', `${card.suit}-${card.value}`);
+    const cardElement = document.createElement("div");
+    cardElement.setAttribute("data-value", card.value);
+    cardElement.classList.add("card", `${card.suit}-${card.value}`);
     cardElement.style.left = `${positionFromLeft}px`;
     cardsWrapper.append(cardElement);
+    const logo = document.createElement("img");
+    logo.src = "./assets/smart-logo.svg";
+    logo.style.display = "none";
+    cardElement.appendChild(logo);
   });
 }
 
 // Function that toggles the class 'shuffling' on the cards wrapper to animate 'stacking' the cards
 function toggleStackedCards() {
-  cardsWrapper.classList.add('shuffling');
+  cardsWrapper.classList.add("shuffling");
   // Timeout to remove the 'shuffling' class to allow the cards to spread out according to
   // their 'left' css property
   setTimeout(() => {
-    cardsWrapper.classList.remove('shuffling');
+    cardsWrapper.classList.remove("shuffling");
   }, 1500);
 }
 // Function to shuffle cards into a random order
 function shuffleCards() {
   // Call to function to 'stack' cards
   toggleStackedCards();
-  const cards = document.querySelectorAll('.card');
+  const cards = document.querySelectorAll(".card");
 
   // Create an array of values from 0-51 to represent cards in a deck
   const orderedDeck = Array.from(new Array(52), (x, i) => i);
@@ -53,7 +57,7 @@ function shuffleCards() {
     shuffledDeck.push(orderedDeck.splice(i, 1)[0]);
   }
   // Create an array of all card classes currently rendered to the dom
-  const allCardClasses = [...cards].map((card) => card.classList[1]);
+  const allCardClasses = [...cards].map(card => card.classList[1]);
 
   // Pass once over each card element and remove its current card specific class and replace it with
   // the class in the same position from the array of shuffled classes
@@ -64,7 +68,7 @@ function shuffleCards() {
 
   // Refetch the array of all cards in the dom, now shuffled, and correctly updates their
   // absolute positioning to appear spread out again on the cards are unstacked
-  const shuffledCards = document.querySelectorAll('.card');
+  const shuffledCards = document.querySelectorAll(".card");
   shuffledCards.forEach((card, j) => {
     card.style.left = `${j * 30}px`;
   });
@@ -72,21 +76,21 @@ function shuffleCards() {
 
 // Function to toggle cards between face up and face down (adding and removing 'hidden' class)
 function toggleCards() {
-  cardsWrapper.classList.toggle('hidden');
+  cardsWrapper.classList.toggle("hidden");
 }
 
 // Function to return shuffled cards to ordered by suit
 function magicTrick() {
   toggleStackedCards();
-  const shuffledCards = document.querySelectorAll('.card');
+  const shuffledCards = document.querySelectorAll(".card");
 
   const allCardClasses = [];
   // Create an array with objects containing the value and the suit of each card
-  suits.forEach((suit) => {
+  suits.forEach(suit => {
     for (let i = 1; i <= 13; i += 1) {
       const cardObject = {
         value: i,
-        suit,
+        suit
       };
       allCardClasses.push(cardObject);
     }
@@ -102,21 +106,21 @@ function magicTrick() {
 
 // Function to clear out the initial button and create new buttons to play the game.
 function createButtons() {
-  const startButton = document.getElementById('start-game');
+  const startButton = document.getElementById("start-game");
   startButton.remove();
-  const buttonWrapper = document.querySelector('.btn-wrapper');
+  const buttonWrapper = document.querySelector(".btn-wrapper");
   const gameButtons = [
-    { text: 'Shuffle', function: shuffleCards },
-    { text: 'Show/Hide', function: toggleCards },
-    { text: 'Magic', function: magicTrick },
+    { text: "Shuffle", function: shuffleCards },
+    { text: "Show/Hide", function: toggleCards },
+    { text: "Magic", function: magicTrick }
   ];
-  gameButtons.forEach((gameButton) => {
-    const newButton = document.createElement('button');
-    newButton.type = 'button';
+  gameButtons.forEach(gameButton => {
+    const newButton = document.createElement("button");
+    newButton.type = "button";
     newButton.id = gameButton;
-    newButton.classList.add('btn', 'btn-lg', 'btn-secondary', 'mx-2');
+    newButton.classList.add("btn", "btn-lg", "btn-secondary", "mx-2");
     newButton.innerText = gameButton.text;
-    newButton.addEventListener('click', gameButton.function);
+    newButton.addEventListener("click", gameButton.function);
     buttonWrapper.append(newButton);
   });
 }
@@ -127,4 +131,4 @@ function startGame() {
   createCards();
 }
 
-document.getElementById('start-game').addEventListener('click', startGame);
+document.getElementById("start-game").addEventListener("click", startGame);
