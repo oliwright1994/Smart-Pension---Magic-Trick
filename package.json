@@ -6,7 +6,8 @@
   "scripts": {
     "pretest": "./node_modules/.bin/eslint .",
     "test": "./node_modules/.bin/cypress run",
-    "develop": "sass css/index.scss css/index.css --watch"
+    "develop": "sass css/index.scss css/index.css --watch",
+    "sass": "sass css/index.scss css/index.css"
   },
   "repository": {
     "type": "git",
