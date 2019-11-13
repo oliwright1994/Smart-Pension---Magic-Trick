@@ -11,6 +11,8 @@
     background-size: 100%;
     transition: 1s;
     background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
 
     .card-face {
       display: flex;
@@ -38,17 +40,17 @@
         font-size: 75px;
       }
     }
-    @for $i from 1 through 10 {
 
-    &[class*="-#{$i}"]{
-      .value{
-      &::before {
-        content: "#{$i}"
+    @for $i from 1 through 10 {
+      &[class*="-#{$i}"]{
+        .value{
+        &::before {
+          content: "#{$i}"
+        }
       }
     }
   }
 
-}
     &[class*="-11"]{
       .value{
         &::before {
@@ -56,6 +58,7 @@
         }
       }
     }
+
     &[class*="-12"]{
       .value{
         &::before {
@@ -63,6 +66,7 @@
         }
       }
     }
+
     &[class*="-13"]{
       .value{
         &::before {

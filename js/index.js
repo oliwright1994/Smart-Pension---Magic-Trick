@@ -19,15 +19,9 @@ function createCards() {
     const positionFromLeft = i * 30;
     const cardElement = document.createElement("div");
     cardElement.setAttribute("data-value", card.value);
-    cardElement.classList.add(
-      "card",
-      `${card.suit}-${card.value}`,
-      "border-dark",
-      "border",
-      "rounded"
-    );
+    cardElement.classList.add("card", `${card.suit}-${card.value}`);
     cardElement.style.left = `${positionFromLeft}px`;
-    let cardFace = document.createElement("div");
+    const cardFace = document.createElement("div");
     cardFace.classList.add("card-face");
     cardFace.innerHTML = `<p class='top'>
     <span class='value'></span>
@@ -71,7 +65,7 @@ function shuffleCards() {
   let n = orderedDeck.length;
   let i;
   while (n) {
-    i = Math.floor(Math.random() * (n -= 1));
+    i = Math.round(Math.random() * (n -= 1));
     shuffledDeck.push(orderedDeck.splice(i, 1)[0]);
   }
   // Create an array of all card classes currently rendered to the dom
@@ -84,8 +78,8 @@ function shuffleCards() {
     card.classList.add(allCardClasses[shuffledDeck[j]]);
   });
 
-  // Refetch the array of all cards in the dom, now shuffled, and correctly updates their
-  // absolute positioning to appear spread out again on the cards are unstacked
+  // Refetch the array of all cards in the DOM, now shuffled, and correctly updates their
+  // absolute positioning to appear spread out again once the cards are unstacked
   const shuffledCards = document.querySelectorAll(".card");
   shuffledCards.forEach((card, j) => {
     card.style.left = `${j * 30}px`;

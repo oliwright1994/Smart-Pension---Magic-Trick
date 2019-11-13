@@ -5771,6 +5771,8 @@ h1 {
   background-size: 100%;
   transition: 1s;
   background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 .cards-wrapper .card .card-face {
   display: flex;
