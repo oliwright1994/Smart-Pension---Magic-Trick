@@ -62,12 +62,35 @@ describe('Cards are shuffled randomly each time', () => {
       .click();
     cy.contains('Shuffle').click();
     cy.get('.card').then((cardsFirstShuffle) => {
-      const firstShuffledCardClasses = [...cardsFirstShuffle].map((card) => card.classList[1]);
+      const firstShuffledCardClasses = [...cardsFirstShuffle].map(
+        (card) => card.classList[1],
+      );
       cy.contains('Shuffle').click();
       cy.get('.card').then((cardsSecondShuffle) => {
-        const secondShuffledCardsClasses = [...cardsSecondShuffle].map((card) => card.classList[1]);
-        expect(firstShuffledCardClasses).to.not.deep.equal(secondShuffledCardsClasses);
+        const secondShuffledCardsClasses = [...cardsSecondShuffle].map(
+          (card) => card.classList[1],
+        );
+        expect(firstShuffledCardClasses).to.not.deep.equal(
+          secondShuffledCardsClasses,
+        );
       });
     });
+  });
+});
+
+describe('Cards are stacked and unstacked when magic or shuffle button is clicked', () => {
+  it('Clicks the Shuffle button, waits, then clicks the Magic button', () => {
+    cy.visit('./index.html');
+    cy.get('#start-game')
+      .should('have.text', "Let's get started")
+      .click();
+    cy.contains('Shuffle').click();
+    cy.get('.cards-wrapper').should('have.class', 'shuffling');
+    cy.wait(1500);
+    cy.get('.cards-wrapper').should('not.have.class', 'shuffling');
+    cy.contains('Magic').click();
+    cy.get('.cards-wrapper').should('have.class', 'shuffling');
+    cy.wait(1500);
+    cy.get('.cards-wrapper').should('not.have.class', 'shuffling');
   });
 });

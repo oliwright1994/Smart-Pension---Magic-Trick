@@ -4,11 +4,11 @@ const cardsWrapper = document.querySelector('.cards-wrapper');
 function createCards() {
   const cards = [];
   // Create an array with objects containing the value and the suit of each card
-  suits.forEach(suit => {
+  suits.forEach((suit) => {
     for (let i = 1; i <= 13; i += 1) {
       const cardObject = {
         value: i,
-        suit
+        suit,
       };
       cards.push(cardObject);
     }
@@ -69,7 +69,7 @@ function shuffleCards() {
     shuffledDeck.push(orderedDeck.splice(i, 1)[0]);
   }
   // Create an array of all card classes currently rendered to the dom
-  const allCardClasses = [...cards].map(card => card.classList[1]);
+  const allCardClasses = [...cards].map((card) => card.classList[1]);
 
   // Pass once over each card element and remove its current card specific class and replace it with
   // the class in the same position from the array of shuffled classes
@@ -98,11 +98,11 @@ function magicTrick() {
 
   const allCardClasses = [];
   // Create an array with objects containing the value and the suit of each card
-  suits.forEach(suit => {
+  suits.forEach((suit) => {
     for (let i = 1; i <= 13; i += 1) {
       const cardObject = {
         value: i,
-        suit
+        suit,
       };
       allCardClasses.push(cardObject);
     }
@@ -124,9 +124,9 @@ function createButtons() {
   const gameButtons = [
     { text: 'Shuffle', function: shuffleCards },
     { text: 'Show/Hide', function: toggleCards },
-    { text: 'Magic', function: magicTrick }
+    { text: 'Magic', function: magicTrick },
   ];
-  gameButtons.forEach(gameButton => {
+  gameButtons.forEach((gameButton) => {
     const newButton = document.createElement('button');
     newButton.type = 'button';
     newButton.id = gameButton;

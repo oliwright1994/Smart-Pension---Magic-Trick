@@ -5782,13 +5782,13 @@ h1 {
 }
 .cards-wrapper .card .card-face .top, .cards-wrapper .card .card-face .bottom {
   display: inline-flex;
-  justify-content: flex-start;
   width: 30px;
   flex-direction: column;
 }
 .cards-wrapper .card .card-face .bottom {
   transform: rotateY(180deg) rotateX(180deg);
   align-self: flex-end;
+  justify-content: flex-end;
 }
 .cards-wrapper .card .card-face .center {
   display: flex;
@@ -5838,7 +5838,7 @@ h1 {
   content: "K";
 }
 .cards-wrapper .card[class*=" hearts"] .value {
-  color: #0f0d0d;
+  color: red;
 }
 .cards-wrapper .card[class*=" hearts"] .suit::before {
   color: red;
