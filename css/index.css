@@ -5779,16 +5779,14 @@ h1 {
   justify-content: space-between;
 }
 .cards-wrapper .card .card-face .top, .cards-wrapper .card .card-face .bottom {
-  display: flex;
+  display: inline-flex;
   justify-content: flex-start;
-}
-.cards-wrapper .card .card-face .top {
+  width: 30px;
   flex-direction: column;
-  align-items: flex-start;
 }
 .cards-wrapper .card .card-face .bottom {
-  flex-direction: column-reverse;
-  align-items: flex-end;
+  transform: rotateY(180deg) rotateX(180deg);
+  align-self: flex-end;
 }
 .cards-wrapper .card .card-face .center {
   display: flex;
@@ -5798,31 +5796,70 @@ h1 {
   height: 100%;
   font-size: 75px;
 }
-.cards-wrapper .card.hearts .value {
-  color: red;
+.cards-wrapper .card[class*="-1"] .value::before {
+  content: "1";
 }
-.cards-wrapper .card.hearts .suit::before {
+.cards-wrapper .card[class*="-2"] .value::before {
+  content: "2";
+}
+.cards-wrapper .card[class*="-3"] .value::before {
+  content: "3";
+}
+.cards-wrapper .card[class*="-4"] .value::before {
+  content: "4";
+}
+.cards-wrapper .card[class*="-5"] .value::before {
+  content: "5";
+}
+.cards-wrapper .card[class*="-6"] .value::before {
+  content: "6";
+}
+.cards-wrapper .card[class*="-7"] .value::before {
+  content: "7";
+}
+.cards-wrapper .card[class*="-8"] .value::before {
+  content: "8";
+}
+.cards-wrapper .card[class*="-9"] .value::before {
+  content: "9";
+}
+.cards-wrapper .card[class*="-10"] .value::before {
+  content: "10";
+}
+.cards-wrapper .card[class*="-11"] .value::before {
+  content: "J";
+}
+.cards-wrapper .card[class*="-12"] .value::before {
+  content: "Q";
+}
+.cards-wrapper .card[class*="-13"] .value::before {
+  content: "K";
+}
+.cards-wrapper .card[class*=" hearts"] .value {
+  color: #0f0d0d;
+}
+.cards-wrapper .card[class*=" hearts"] .suit::before {
   color: red;
   content: "♥";
 }
-.cards-wrapper .card.spades .value {
+.cards-wrapper .card[class*=" spades"] .value {
   color: black;
 }
-.cards-wrapper .card.spades .suit::before {
+.cards-wrapper .card[class*=" spades"] .suit::before {
   color: black;
   content: "♠";
 }
-.cards-wrapper .card.diamonds .value {
+.cards-wrapper .card[class*=" diamonds"] .value {
   color: red;
 }
-.cards-wrapper .card.diamonds .suit::before {
+.cards-wrapper .card[class*=" diamonds"] .suit::before {
   color: red;
   content: "♦";
 }
-.cards-wrapper .card.clubs .value {
+.cards-wrapper .card[class*=" clubs"] .value {
   color: black;
 }
-.cards-wrapper .card.clubs .suit::before {
+.cards-wrapper .card[class*=" clubs"] .suit::before {
   color: black;
   content: "♣";
 }

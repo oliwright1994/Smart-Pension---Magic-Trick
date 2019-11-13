@@ -21,8 +21,7 @@ function createCards() {
     cardElement.setAttribute("data-value", card.value);
     cardElement.classList.add(
       "card",
-      `${card.suit}`,
-      `${card.value}`,
+      `${card.suit}-${card.value}`,
       "border-dark",
       "border",
       "rounded"
