@@ -20,8 +20,17 @@ Unfortunately on addition of the Higher/Lower game (see below) i had an issue wi
 
 ## Higher/Lower
 
-##### Results of initial cypress tests:
+As additional functionality i added the ability to play a simple game of Higher/Lower where a card is dealt from the deck and the user must guess whether the value of the next card will be higher or lower.
+
+Below the game buttons a message gives some simple instructions to the user, and updates with the result of their choice.
+
+The game contains a reset button to reset the page to the initial state as if the 'Let's get started' button had just been clicked
+##### Image of page after 'Let's get started' button has been clicked:
+![screenshot of initial cypress test results](./screenshots/initial-page-state.png)
+
+##### Image of Higher/Lower game:
 ![screenshot of initial cypress test results](./screenshots/higher-lower-game.png)
+
 ### Contributors
 [Oliver Wright](https://github.com/oliwright1994)
 
