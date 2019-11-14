@@ -94,3 +94,4 @@ describe('Cards are stacked and unstacked when magic or shuffle button is clicke
     cy.get('.cards-wrapper').should('not.have.class', 'shuffling');
   });
 });
+
