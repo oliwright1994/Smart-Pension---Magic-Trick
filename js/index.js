@@ -1,14 +1,35 @@
 const suits = ['hearts', 'spades', 'diamonds', 'clubs'];
 const cardsWrapper = document.querySelector('.cards-wrapper');
 
+const gameButtons = [
+  { text: 'Shuffle', function: shuffleCards },
+  { text: 'Show/Hide', function: toggleCards },
+  { text: 'Magic', function: magicTrick },
+  { text: 'Higher/Lower', function: higherLower }
+];
+
+const higherLowerButtons = [
+  { text: 'Higher', function: chooseCard },
+  { text: 'Lower', function: chooseCard },
+  { text: 'Reset', function: resetGame }
+];
+
+function clearCards() {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.remove();
+  });
+}
+
 function createCards() {
+  clearCards();
   const cards = [];
   // Create an array with objects containing the value and the suit of each card
-  suits.forEach((suit) => {
+  suits.forEach(suit => {
     for (let i = 1; i <= 13; i += 1) {
       const cardObject = {
         value: i,
-        suit,
+        suit
       };
       cards.push(cardObject);
     }
@@ -69,7 +90,7 @@ function shuffleCards() {
     shuffledDeck.push(orderedDeck.splice(i, 1)[0]);
   }
   // Create an array of all card classes currently rendered to the dom
-  const allCardClasses = [...cards].map((card) => card.classList[1]);
+  const allCardClasses = [...cards].map(card => card.classList[1]);
 
   // Pass once over each card element and remove its current card specific class and replace it with
   // the class in the same position from the array of shuffled classes
@@ -98,11 +119,11 @@ function magicTrick() {
 
   const allCardClasses = [];
   // Create an array with objects containing the value and the suit of each card
-  suits.forEach((suit) => {
+  suits.forEach(suit => {
     for (let i = 1; i <= 13; i += 1) {
       const cardObject = {
         value: i,
-        suit,
+        suit
       };
       allCardClasses.push(cardObject);
     }
@@ -116,20 +137,77 @@ function magicTrick() {
   });
 }
 
+function stackCards() {
+  cardsWrapper.classList.add('shuffling');
+}
+
+function higherLower() {
+  createButtons(higherLowerButtons);
+  stackCards();
+  toggleCards();
+  dealFirstCard();
+}
+function dealFirstCard() {
+  const higherBtn = document.getElementById('higher');
+  const lowerBtn = document.getElementById('lower');
+  higherBtn.setAttribute('disabled', true);
+  lowerBtn.setAttribute('disabled', true);
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.card');
+    const firstCard = cards[Math.round(Math.random() * 51)];
+    firstCard.id = 'hl-first';
+    document.querySelector('.hl-msg').innerText =
+      'Is the next card higher or lower?';
+    higherBtn.removeAttribute('disabled');
+    lowerBtn.removeAttribute('disabled');
+  }, 2000);
+}
+function chooseCard(event) {
+  const choice = event.target.id;
+  const gameMessage = document.querySelector('.hl-msg');
+  const cards = document.querySelectorAll('.card');
+  const secondCard = cards[Math.round(Math.random() * 50)];
+  secondCard.id = 'hl-second';
+  const firstCard = document.getElementById('hl-first');
+  if (
+    (secondCard.attributes[0].nodeValue > firstCard.attributes[0].nodeValue &&
+      choice === 'higher') ||
+    (secondCard.attributes[0].nodeValue < firstCard.attributes[0].nodeValue &&
+      choice === 'lower')
+  ) {
+    gameMessage.innerText = 'Correct!';
+  } else if (
+    secondCard.attributes[0].nodeValue === firstCard.attributes[0].nodeValue
+  ) {
+    gameMessage.innerText = 'Draw!';
+  } else {
+    gameMessage.innerText = 'Wrong!';
+  }
+  setTimeout(() => {
+    firstCard.id = null;
+    secondCard.id = null;
+    dealFirstCard();
+  }, 1500);
+}
+
+function resetGame() {
+  cardsWrapper.classList.remove('shuffling');
+  cardsWrapper.classList.toggle('hidden');
+  document.querySelector('.hl-msg').innerText = '';
+  startGame();
+}
 // Function to clear out the initial button and create new buttons to play the game.
-function createButtons() {
-  const startButton = document.getElementById('start-game');
-  startButton.remove();
+function createButtons(gameButtons) {
+  const initialButtons = document.querySelectorAll('button');
+  initialButtons.forEach(button => {
+    button.remove();
+  });
   const buttonWrapper = document.querySelector('.btn-wrapper');
-  const gameButtons = [
-    { text: 'Shuffle', function: shuffleCards },
-    { text: 'Show/Hide', function: toggleCards },
-    { text: 'Magic', function: magicTrick },
-  ];
-  gameButtons.forEach((gameButton) => {
+
+  gameButtons.forEach(gameButton => {
     const newButton = document.createElement('button');
     newButton.type = 'button';
-    newButton.id = gameButton;
+    newButton.id = gameButton.text.toLowerCase();
     newButton.classList.add('btn', 'btn-lg', 'btn-secondary', 'mx-2');
     newButton.innerText = gameButton.text;
     newButton.addEventListener('click', gameButton.function);
@@ -139,7 +217,7 @@ function createButtons() {
 // Function to start the game by clearing the wrapper, creating
 // and appending the buttons and all the cards to the DOM
 function startGame() {
-  createButtons();
+  createButtons(gameButtons);
   createCards();
 }
 

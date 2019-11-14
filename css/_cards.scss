@@ -153,4 +153,23 @@
       left: 0 !important;
     }
   }
+
+  .card#hl-first, .card#hl-second{
+    background: white;
+    img{
+      display: none !important;
+    }
+    .card-face {
+      display: flex !important;
+      width: 100%;
+    }
+  }
+  .card#hl-first{
+    left: 250px !important;
+
+  }
+  .card#hl-second{
+    left: 500px !important;
+
+  }
 }

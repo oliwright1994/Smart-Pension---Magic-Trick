@@ -5889,11 +5889,31 @@ h1 {
 .cards-wrapper.shuffling .card {
   left: 0 !important;
 }
+.cards-wrapper .card#hl-first, .cards-wrapper .card#hl-second {
+  background: white;
+}
+.cards-wrapper .card#hl-first img, .cards-wrapper .card#hl-second img {
+  display: none !important;
+}
+.cards-wrapper .card#hl-first .card-face, .cards-wrapper .card#hl-second .card-face {
+  display: flex !important;
+  width: 100%;
+}
+.cards-wrapper .card#hl-first {
+  left: 250px !important;
+}
+.cards-wrapper .card#hl-second {
+  left: 500px !important;
+}
 
 .body-bg {
   background: #165a1c;
   background: linear-gradient(31deg, #165a1c 19%, #08380c 100%);
   height: 100vh;
+}
+
+.msg-wrapper {
+  height: 50px;
 }
 
 /*# sourceMappingURL=index.css.map */
